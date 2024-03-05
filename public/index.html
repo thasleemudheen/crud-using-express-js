@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Information Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+    button {
+        width: 100px;
+      background-color: #7b867bd9;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    h1{
+        margin-left: 34%;
+    }
+    .fullform{
+        background-color: rgb(0, 139, 88);
+    }
+    small{
+        color:red;
+        margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="fullform">
+    <h1>USER INFORMATION FORM</h1>
+    <form action="/submit_form" method="post"> 
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" >
+      <small id="errorname"></small>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" >
+      <small id="errorage"></small>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" >
+      <small id="errornumber"></small>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" >
+      <small id="errormail"></small>
+      <label for="qualification">Educational Qualification:</label>
+      <input type="text" id="qualification" name="qualification" >
+      <small id="errorqualification"></small>
+      <button type="submit" id="submitbtn" onclick="validateForm(event)">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
+      var isValid = true;
+
+      document.getElementById('errorname').textContent = '';
+      document.getElementById('errorage').textContent = '';
+      document.getElementById('errornumber').textContent = '';
+      document.getElementById('errormail').textContent = '';
+      document.getElementById('errorqualification').textContent = '';
+
+      var name = document.getElementById('name').value;
+      if (name.trim() === '') {
+        document.getElementById('errorname').textContent = 'Name is required.';
+        isValid = false;
+      }
+
+      var age = document.getElementById('age').value;
+      if (age.trim() === '' || isNaN(age) || age <= 0) {
+        document.getElementById('errorage').textContent = 'Please enter a valid age.';
+        isValid = false;
+      }
+
+      var phone = document.getElementById('phone').value;
+      if (phone.trim() === '') {
+        document.getElementById('errornumber').textContent = 'Phone number is required.';
+        isValid = false;
+      }
+
+      var email = document.getElementById('email').value;
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email.trim() === '' || !emailRegex.test(email)) {
+        document.getElementById('errormail').textContent = 'Please enter a valid email address.';
+        isValid = false;
+      }
+
+      var qualification = document.getElementById('qualification').value;
+      if (qualification.trim() === '') {
+        document.getElementById('errorqualification').textContent = 'Qualification is required.';
+        isValid = false;
+      }
+
+      if (isValid) {
+        document.forms[0].submit();
+      }
+    }
+  </script>
+</body>
+</html>
